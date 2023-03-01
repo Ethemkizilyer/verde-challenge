@@ -6,8 +6,7 @@ import { bakarEdit } from "../../features/postSlice";
 const Navbar = () => {
   const dispatch = useDispatch();
   const { posts } = useSelector((state) => state.posts);
-  console.log(posts);
-  const myPosts = posts?.filter((post) => post.userId === 1).length;
+  
   const navigate = useNavigate();
   return (
     <header className="bg-white container shadow-md m-auto mt-8 p-5 flex justify-between items-center">
@@ -91,7 +90,7 @@ const Navbar = () => {
           src="http://www.leblebitozu.com/wp-content/uploads/2015/11/neyzen-tevfik-5.jpg"
           alt="profile"
         />
-        <button onClick={() => navigate("/newPost")}>NEW BLOG</button>
+        {/* <button onClick={() => navigate("/newPost")}>NEW BLOG</button> */}
       </nav>
     </header>
   );

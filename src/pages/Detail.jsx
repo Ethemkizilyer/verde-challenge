@@ -3,11 +3,9 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { BsArrowLeft} from "react-icons/bs"
 import { RiDeleteBinLine, RiCloseFill} from "react-icons/ri"
 import { MdOutlineModeEditOutline} from "react-icons/md"
-import { bakarEdit, changeEdit, deletePost, modalOpen, removeDeleteText, updatePost } from '../features/postSlice'
-import Loading from "../assets/loading.gif";
+import { bakarEdit, changeEdit, deletePost, modalOpen, removeDeleteText } from '../features/postSlice'
 import { useEffect, useState } from 'react'
 import Comments from '../components/Comments/Comments'
-import axios from 'axios'
 import style from "./Pages.module.css";
 
 
@@ -18,8 +16,6 @@ const navigate = useNavigate();
 const dispatch = useDispatch();
 console.log(id);
 const [comments, setComments] = useState([]);
-const [asd, setAsd] = useState([]);
-const [upd, setUpd] = useState(false);
 const { posts, bakar, isOpen, loading, deleteText } = useSelector(
   (state) => state.posts
 );
@@ -32,19 +28,8 @@ const [yeni, setYeni] = useState({
 });
 
 const nam = posts.filter((item) => item.id == id);
-const get = async () => {
-  try {
-    const { data } = await axios(
-      `https://jsonplaceholder.typicode.com/posts?userId=1&id=${id}`
-    );
-    setAsd(data);
-  } catch (error) {
-    console.log(error.message);
-  }
-};
-
 useEffect(() => {
-  get();
+  
   getComments();
 }, []);
 

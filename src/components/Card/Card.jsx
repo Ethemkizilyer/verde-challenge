@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router";
 
 const Card = ({ id, title, body, userId }) => {
-  console.log("asd");
+  
   const navigate = useNavigate();
   return (
     <div

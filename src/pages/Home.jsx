@@ -2,18 +2,12 @@ import Card from "../components/Card/Card";
 import Loading from "../assets/loading.gif";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+
 import { useDispatch, useSelector } from "react-redux";
-import { addText, getPosts, gtPosts } from "../features/postSlice";
+import {  getPosts } from "../features/postSlice";
 
 const Home = () => {
-  const [yeni, setYeni] = useState({
-    userId: 1,
-    id: Math.ceil(Math.random() * 1000),
-    title: "",
-    body: "",
-  });
-  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   const { posts, bakar } = useSelector((state) => state.posts);
 
@@ -23,15 +17,11 @@ const Home = () => {
     !bakar && dispatch(getPosts());
     // setAsd(posts)
   }, [dispatch]);
-  const handle = () => {
-    dispatch(addText(yeni));
-  };
+ 
 
   const getPost = async () => {
     const url = `https://jsonplaceholder.typicode.com/posts?userId=1`;
-
     const { data } = await axios(url);
-    console.log(data);
     setAsd(data);
     return data;
   };
@@ -42,9 +32,8 @@ const Home = () => {
     getPost();
     setAsd([...asd, addedPost]);
   }, []);
-  console.log(asd);
-  console.log(addedPost);
-  // setAsd([...asd,addedPost])
+
+
   return (
     <>
       {loading ? (
