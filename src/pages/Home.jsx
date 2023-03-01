@@ -4,20 +4,17 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import {  getPosts } from "../features/postSlice";
+import { getPosts } from "../features/postSlice";
 
 const Home = () => {
-
   const dispatch = useDispatch();
   const { posts, bakar } = useSelector((state) => state.posts);
 
-  console.log(bakar);
   useEffect(() => {
     // get();
     !bakar && dispatch(getPosts());
     // setAsd(posts)
   }, [dispatch]);
- 
 
   const getPost = async () => {
     const url = `https://jsonplaceholder.typicode.com/posts?userId=1`;
@@ -32,7 +29,6 @@ const Home = () => {
     getPost();
     setAsd([...asd, addedPost]);
   }, []);
-
 
   return (
     <>

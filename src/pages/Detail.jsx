@@ -1,42 +1,49 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { useParams, useNavigate } from 'react-router-dom'
-import { BsArrowLeft} from "react-icons/bs"
-import { RiDeleteBinLine, RiCloseFill} from "react-icons/ri"
-import { MdOutlineModeEditOutline} from "react-icons/md"
-import { bakarEdit, changeEdit, deletePost, modalOpen, removeDeleteText } from '../features/postSlice'
-import { useEffect, useState } from 'react'
-import Comments from '../components/Comments/Comments'
+import { useDispatch, useSelector } from "react-redux";
+import { useParams, useNavigate } from "react-router-dom";
+import { BsArrowLeft } from "react-icons/bs";
+import { RiDeleteBinLine, RiCloseFill } from "react-icons/ri";
+import { MdOutlineModeEditOutline } from "react-icons/md";
+import {
+  bakarEdit,
+  changeEdit,
+  deletePost,
+  modalOpen,
+  removeDeleteText,
+} from "../features/postSlice";
+import { useEffect, useState } from "react";
+import Comments from "../components/Comments/Comments";
 import style from "./Pages.module.css";
-
-
+import { Field, Form, Formik } from "formik";
 
 const Post = () => {
-const { id } = useParams();
-const navigate = useNavigate();
-const dispatch = useDispatch();
-console.log(id);
-const [comments, setComments] = useState([]);
-const { posts, bakar, isOpen, loading, deleteText } = useSelector(
-  (state) => state.posts
-);
-console.log(bakar);
-const [yeni, setYeni] = useState({
-  userId: 1,
-  id: id,
-  title: "",
-  body: "",
-});
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-const nam = posts.filter((item) => item.id == id);
-useEffect(() => {
-  
-  getComments();
-}, []);
+  const [comments, setComments] = useState([]);
 
-const handle = () => {
-  dispatch(modalOpen());
-  dispatch(changeEdit(yeni));
-};
+  const { posts, bakar, isOpen, loading, deleteText } = useSelector(
+    (state) => state.posts
+  );
+
+  const [yeni, setYeni] = useState({
+    userId: 1,
+    id: id,
+    title: "",
+    body: "",
+  });
+
+  const nam = posts.filter((item) => item.id == id);
+
+  useEffect(() => {
+    // setText(nam)
+    getComments();
+  }, []);
+
+  const handle = () => {
+    dispatch(modalOpen());
+    dispatch(changeEdit(yeni));
+  };
 
   const getComments = async () => {
     const url = `https://jsonplaceholder.typicode.com/posts/${nam[0]?.id}/comments`;
@@ -76,18 +83,6 @@ const handle = () => {
             onClick={() => dispatch(changeEdit(true))}
           >
             {nam[0]?.title}
-            {/* {!isEdit ? (
-              <p className="font-bold text-xl">{post?.title}</p>
-            ) : (
-              <textarea
-                className=" text-xl w-full bg-gray-50"
-                cols="30"
-                rows="3"
-                value={updateText.title}
-                name="title"
-                onChange={handleChange}
-              ></textarea>
-            )} */}
           </div>
           <h4 className="font-bold text-lg">Detail</h4>
           <div
@@ -96,18 +91,6 @@ const handle = () => {
             onClick={() => dispatch(changeEdit(true))}
           >
             {nam[0]?.body}
-            {/* {!isEdit ? (
-              <p className=" text-xl">{post?.body}</p>
-            ) : (
-              <textarea
-                className=" text-xl w-full bg-gray-50"
-                cols="30"
-                rows="5"
-                value={updateText.body}
-                name="body"
-                onChange={handleChange}
-              ></textarea>
-            )} */}
           </div>
 
           <div className="btn-container flex justify-end gap-2 mt-8">
@@ -173,80 +156,56 @@ const handle = () => {
               >
                 &times;
               </span>
-              {/* <Formik
+              <Formik
                 initialValues={{
-                  name: edit()[0].name,
-                  number: edit()[0].number,
+                  userId: 1,
+                  id: id,
+                  title: nam[0].title,
+                  body: nam[0].body,
                 }}
                 onSubmit={(values, { resetForm }) => {
-                 
-                    const item = {
-                      ...values,
-                      id: edit()[0].id,
-                    };
-                    dispatch(modalOpen());
-                    dispatch(editContact(item));
-                    resetForm();
+                  const item = {
+                    ...values,
+                  };
+                  dispatch(modalOpen());
+                  dispatch(changeEdit(item));
+                  resetForm();
                 }}
               >
                 <Form className={style.form}>
-                  <label htmlFor="name">Title</label>
+                  <label htmlFor="title">Title</label>
+
                   <Field
                     className={style.input}
                     type="text"
-                    name="name"
-                    id="name"
-                    pattern="^[a-zA-ZğüşıöçĞÜŞİÖÇ]+(([' -][a-zA-ZğüşıöçĞÜŞİÖÇ ])?[a-zA-ZğüşıöçĞÜŞİÖÇ]*)*$"
-                    title="Ad yalnızca harf, kesme işareti, kısa çizgi ve boşluk içerebilir. Örneğin Charles de Batz de Castelmore d'Artagnan"
+                    name="title"
+                    id="title"
                     required
                   />
-                  <label htmlFor="number" className={style.label}>
-                    Telefon Numarası
-                  </label>
-                  <Field
-                    className={style.input}
-                    type="text"
-                    name="number"
-                    id="number"
-                    
-                    title="Telefon numarası rakam olmalı ve boşluk, tire, parantez içerebilir ve + ile başlayabilir"
-                    required
-                  />
-                  <button type="submit" className={style.button}>
-                    Kaydet
-                  </button>
-                </Form>
-              </Formik> */}
-              <div>
-                <form className={style.form}>
-                  <label htmlFor="name">Title</label>
-                  <br />
-                  <input
-                    className={style.input}
-                    type="text"
-                    onChange={(e) =>
-                      setYeni({ ...yeni, title: e.target.value })
-                    }
-                  />{" "}
-                  <br />
-                  <label htmlFor="number" className={style.label}>
+
+                  <label htmlFor="body" className={style.label}>
                     Blog
                   </label>
-                  <br />
-                  <textarea
-                    onChange={(e) => setYeni({ ...yeni, body: e.target.value })}
-                  />{" "}
-                  <br />
-                  <button className={style.button} onClick={handle}>
+
+                  <Field
+                    as="textarea"
+                    className={style.input}
+                    name="body"
+                    id="body"
+                    rows="10"
+                    required
+                  />
+
+                  <button type="submit" className={style.button}>
                     Güncelle
                   </button>
-                </form>
-              </div>
+                </Form>
+              </Formik>
             </div>
           </div>
         </div>
       )}
     </>
   );
-}
-export default Post
+};
+export default Post;

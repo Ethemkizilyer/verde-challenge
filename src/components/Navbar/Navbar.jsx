@@ -6,7 +6,7 @@ import { bakarEdit } from "../../features/postSlice";
 const Navbar = () => {
   const dispatch = useDispatch();
   const { posts } = useSelector((state) => state.posts);
-  
+
   const navigate = useNavigate();
   return (
     <header className="bg-white container shadow-md m-auto mt-8 p-5 flex justify-between items-center">
@@ -27,7 +27,7 @@ const Navbar = () => {
           className="text-3xl font-bold cursor-pointer"
           onClick={() => {
             dispatch(bakarEdit());
-            return navigate(-1);
+            return navigate("/");
           }}
         >
           Arbit Blog
@@ -38,7 +38,7 @@ const Navbar = () => {
           className="text-2xl font-semibold relative cursor-pointer"
           onClick={() => {
             dispatch(bakarEdit());
-            return navigate(-1);
+            return navigate("/");
           }}
         >
           Posts

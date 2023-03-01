@@ -15,13 +15,13 @@
 /* *********FORM ************ */
 
 .form {
-  width: 300px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   padding: 10px 30px 20px;
   outline: 1px solid rgba(226, 221, 221, 0.704);
 
-  box-shadow: rgba(127, 140, 151, 0.48) 6px 2px 16px 0px,
+  box-shadow: rgba(55, 61, 66, 0.48) 6px 2px 16px 0px,
     rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
   margin: 0 auto;
 }
