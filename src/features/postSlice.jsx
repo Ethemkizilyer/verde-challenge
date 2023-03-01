@@ -28,10 +28,7 @@ export const postSlice = createSlice({
       return state.posts;
     },
     addText: (state, { payload }) => {
-      console.log(payload);
-      console.log(state.posts);
       state.posts = [...state.posts, payload].reverse();
-      console.log(state.posts);
     },
     removeDeleteText: (state, action) => {
       state.deleteText = "";
