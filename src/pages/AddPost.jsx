@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {  addText, bakarEdit } from '../features/postSlice'
-import Loading from "../assets/loading.gif"
 import { useNavigate } from 'react-router-dom'
 
 const AddPost = () => {
@@ -12,7 +11,7 @@ const AddPost = () => {
         userId:1,
         id:Math.ceil(Math.random() * 1000)
     })
-    const { loading, addedPost, showAddedPost} = useSelector(state => state.posts)
+   
     const dispatch = useDispatch()
 
     const handleChange = (e) => {
@@ -21,7 +20,7 @@ const AddPost = () => {
             [e.target.name]: e.target.value
         })
     }
-console.log(newPost);
+
     const handleSubmit = (e) => {
         e.preventDefault()
         dispatch(addText(newPost ))
@@ -59,22 +58,7 @@ console.log(newPost);
             + Add New Post
           </button>
         </form>
-        {showAddedPost && (
-          <div className="m-auto mt-3 md:w-1/2">
-            {loading ? (
-              <img
-                className="block m-auto"
-                src={Loading}
-                alt="loading-spinner"
-              />
-            ) : (
-              <div className="bg-gray-100 rounded p-4 shadow-md">
-                <h3 className="font-bold pb-4">{addedPost?.title}</h3>
-                <p>{addedPost?.body}</p>
-              </div>
-            )}
-          </div>
-        )}
+        
       </section>
     );
 }

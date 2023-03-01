@@ -28,7 +28,7 @@ export const postSlice = createSlice({
       return state.posts;
     },
     addText: (state, { payload }) => {
-      state.posts = [...state.posts, payload].reverse();
+      state.posts.unshift(payload);
     },
     removeDeleteText: (state, action) => {
       state.deleteText = "";

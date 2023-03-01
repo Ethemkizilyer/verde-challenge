@@ -5,7 +5,7 @@ import { bakarEdit } from "../../features/postSlice";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const { posts } = useSelector((state) => state.posts);
+  const { posts,loading } = useSelector((state) => state.posts);
 
   const navigate = useNavigate();
   return (
@@ -43,7 +43,11 @@ const Navbar = () => {
         >
           Posts
           <span className="absolute rounded-full bg-green-200 text-base left-11 bottom-6 w-5 h-5 flex justify-center items-center">
-            {posts.length}
+            {!loading ? (
+              posts.length
+            ) : (
+              10
+            )}
           </span>
         </h3>
         <button
