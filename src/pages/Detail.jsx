@@ -12,7 +12,6 @@ import {
 } from "../features/postSlice";
 import { useEffect, useState } from "react";
 import Comments from "../components/Comments/Comments";
-import style from "./Pages.module.css";
 import { Field, Form, Formik } from "formik";
 
 const Post = () => {
@@ -147,11 +146,11 @@ const Post = () => {
         ))}
       </section>
       {isOpen && (
-        <div className={style.modalwrapper}>
-          <div className={style.modal}>
-            <div className={style.modalcontent}>
+        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
+          <div className="bg-white w-[80%] max-w-[500px] max-h-[90%] overflow-auto p-[20px] rounded-lg shadow-md animate-modal-fade-in">
+            <div className="relative">
               <span
-                className={style.close}
+                className="absolute -top-2 right-2 text-[30px] font-bold cursor-pointer"
                 onClick={() => dispatch(modalOpen())}
               >
                 &times;
@@ -172,31 +171,42 @@ const Post = () => {
                   resetForm();
                 }}
               >
-                <Form className={style.form}>
-                  <label htmlFor="title">Title</label>
+                <Form className="w-full flex flex-col pt-2 px-7 pb-5  outline-1 outline-gray-200  shadow-lg rounded-lg mx-auto">
+                  <label
+                    className="text-[20px] font-[600] mb-[5px] "
+                    htmlFor="title"
+                  >
+                    Title
+                  </label>
 
                   <Field
-                    className={style.input}
+                    className="p-[5px] border border-gray-300 rounded-lg font-inherit outline-none transition-all duration-300 ease-linear focus:scale-[1.01] focus:shadow-md"
                     type="text"
                     name="title"
                     id="title"
                     required
                   />
 
-                  <label htmlFor="body" className={style.label}>
+                  <label
+                    htmlFor="body"
+                    className="text-[20px] font-[600] mb-[5px] "
+                  >
                     Blog
                   </label>
 
                   <Field
                     as="textarea"
-                    className={style.input}
+                    className="p-[5px] border border-gray-300 rounded-lg font-inherit outline-none transition-all duration-300 ease-linear focus:scale-[1.01] focus:shadow-md"
                     name="body"
                     id="body"
                     rows="10"
                     required
                   />
 
-                  <button type="submit" className={style.button}>
+                  <button
+                    type="submit"
+                    className="w-full p-[5px] font-inherit text-sm font-bold mt-[20px] cursor-pointer bg-gray-400 border border-gray-400 rounded-lg transition-all duration-300 ease-linear hover:bg-gray-600 hover:text-white hover:shadow-md focus:bg-gray-600 focus:text-white focus:shadow-md"
+                  >
                     Güncelle
                   </button>
                 </Form>
