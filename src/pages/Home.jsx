@@ -9,7 +9,7 @@ import { getPosts } from "../features/postSlice";
 const Home = () => {
   const dispatch = useDispatch();
   const { posts, bakar } = useSelector((state) => state.posts);
-
+console.log(posts);
   useEffect(() => {
     // get();
     !bakar && dispatch(getPosts());
@@ -20,13 +20,14 @@ const Home = () => {
     const url = `https://jsonplaceholder.typicode.com/posts?userId=1`;
     const { data } = await axios(url);
     setAsd(data);
-    return data;
+    
+   localStorage.setItem("blogss", JSON.stringify(data));
   };
   const [asd, setAsd] = useState([]);
   const { loading, addedPost } = useSelector((state) => state.posts);
 
   useEffect(() => {
-    getPost();
+    // getPost();
     setAsd([...asd, addedPost]);
   }, []);
 

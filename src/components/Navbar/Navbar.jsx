@@ -43,11 +43,10 @@ const Navbar = () => {
         >
           Posts
           <span className="absolute rounded-full bg-green-200 text-base left-11 bottom-6 w-5 h-5 flex justify-center items-center">
-            {!loading ? (
-              posts.length
-            ) : (
-              10
-            )}
+            {
+              posts?.length
+            }
+            
           </span>
         </h3>
         <button

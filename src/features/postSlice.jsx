@@ -4,11 +4,17 @@ import axios from "axios";
 export const getPosts = createAsyncThunk("posts/getPosts", async () => {
   const url = `https://jsonplaceholder.typicode.com/posts?userId=1`;
   const { data } = await axios.get(url);
-  return data;
+    ;
+  return JSON.parse(localStorage.getItem("blogss"))
+    ? JSON.parse(localStorage.getItem("blogss"))
+    : data;
+
 });
 
 const initialState = {
-  posts: [],
+  posts:
+    JSON.parse(localStorage.getItem("blogss")) ?
+    JSON.parse(localStorage.getItem("blogss")) :  [],
   addedPost: {},
   updatedPost: {},
   deleteText: "",
@@ -24,21 +30,22 @@ export const postSlice = createSlice({
   name: "posts",
   initialState,
   reducers: {
-    gtPosts: (state) => {
-      return state.posts;
-    },
+  
     addText: (state, { payload }) => {
       state.posts.unshift(payload);
+       localStorage.setItem("blogss", JSON.stringify(state.posts));
     },
     removeDeleteText: (state, action) => {
       state.deleteText = "";
       state.posts = state.posts.filter((item) => item.id != action.payload.id);
+       localStorage.setItem("blogss", JSON.stringify(state.posts));
     },
     changeEdit: (state, action) => {
       state.isEdit = action.payload;
       state.posts = state.posts.map(
         (item) => (item = item.id == action.payload.id ? action.payload : item)
       );
+        localStorage.setItem("blogss", JSON.stringify(state.posts));
     },
     bakarEdit: (state) => {
       state.bakar = true;
@@ -55,7 +62,8 @@ export const postSlice = createSlice({
       })
       .addCase(getPosts.fulfilled, (state, action) => {
         state.loading = false;
-        state.posts = action.payload;
+        state.posts =  action.payload
+       
       })
       .addCase(getPosts.rejected, (state) => {
         state.loading = false;
@@ -63,7 +71,7 @@ export const postSlice = createSlice({
   },
 });
 
-export const { removeDeleteText, bakarEdit, changeEdit, addText, gtPosts, modalOpen } =
+export const { removeDeleteText, bakarEdit, changeEdit, addText, modalOpen } =
   postSlice.actions;
 
 export default postSlice.reducer;
